@@ -1,6 +1,6 @@
 [user]
-  name = catsucci
-  email = 150689455+catsucci@users.noreply.github.com
+  name = Voren
+  email = 150689455+VorenXIII@users.noreply.github.com
 
 [init]
   defaultBranch = main
@@ -32,3 +32,9 @@
 
 [diff]
   colorMoved = default
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
