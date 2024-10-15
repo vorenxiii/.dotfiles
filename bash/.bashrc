@@ -2,54 +2,52 @@
 # ~/.bashrc
 #
 
-# DEPENDENCIES:
-# multitail tree zoxide trash-cli fzf bash-completion fastfetch
-# bash bash-completion tar bat tree multitail fastfetch wget unzip fontconfig'
-
-# fzf install:
-# git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
-#
-# zoxide install:
-# curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
-#
-# node:
-# installs fnm (Fast Node Manager)
-# curl -fsSL https://fnm.vercel.app/install | bash
-# activate fnm
-# source ~/.bashrc
-# download and install Node.js
-# fnm use --install-if-missing 20
-#
-# cargo:
-# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-#######################################################
-# EXPORTS
-#######################################################
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
 
 # Disable the bell
 if [[ $iatest -gt 0 ]]; then bind "set bell-style visible"; fi
 
+# Shell Options
+#
+# See man bash for more options...
+#
+# Don't wait for job termination notification
+# set -o notify
+#
+# Don't use ^D to exit
+# set -o ignoreeof
+#
+# Use case-insensitive filename globbing
+shopt -s nocaseglob
+#
+# Make bash append rather than overwrite the history on disk
+shopt -s histappend
+#
+# When changing directory small typos can be ignored by bash
+# for example, cd /vr/lgo/apaache would find /var/log/apache
+shopt -s cdspell
+
+# History options
 # Expand the history size
 export HISTFILESIZE=10000
 export HISTSIZE=500
 export HISTTIMEFORMAT="%F %T" # add timestamp to history
-
+#
 # Don't put duplicate lines in the history and do not add lines that start with a space
 export HISTCONTROL=erasedups:ignoredups:ignorespace
-
+#
 # Check the window size after each command and, if necessary, update the values of LINES and COLUMNS
 shopt -s checkwinsize
-
+#
 # Causes bash to append to history instead of overwriting it so if you start a new terminal, you have old session history
-shopt -s histappend
 PROMPT_COMMAND='history -a'
 
-# set up XDG folders
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_STATE_HOME="$HOME/.local/state"
-export XDG_CACHE_HOME="$HOME/.cache"
+# Set up XDG folders
+# export XDG_DATA_HOME="$HOME/.local/share"
+# export XDG_CONFIG_HOME="$HOME/.config"
+# export XDG_STATE_HOME="$HOME/.local/state"
+# export XDG_CACHE_HOME="$HOME/.cache"
 
 # Allow ctrl-S for history navigation (with ctrl-R)
 [[ $- == *i* ]] && stty -ixon
@@ -60,70 +58,9 @@ if [[ $iatest -gt 0 ]]; then bind "set completion-ignore-case on"; fi
 
 # Show auto-completion list automatically, without double tab
 if [[ $iatest -gt 0 ]]; then bind "set show-all-if-ambiguous On"; fi
-
+#
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-######################################################
-# Prompt
-######################################################
-DEFAULT=$PS1
-# PS1="\w\$ "
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
-
-if [ "$color_prompt" = yes ]; then
-    # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    # PS1='\[\033[38;5;79m\]\w\[\033[00m\]\$ '
-    PS1="\[\033[38;5;110m\]\w\[\033[0m\]$ "
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
 
 # Set the default editor
 export EDITOR=nvim
@@ -134,7 +71,7 @@ alias vim='nvim'
 export CLICOLOR=1
 export LS_COLORS='no=00:fi=00:di=00;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.ogg=01;35:*.mp3=01;35:*.wav=01;35:*.xml=00;31:'
 #export GREP_OPTIONS='--color=auto' #deprecated
-
+#
 # Color for manpages in less makes manpages a little easier to read
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
@@ -144,31 +81,26 @@ export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
-# SDKMAN
-# export SDKMAN_DIR="$HOME/.sdkman"
-# [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-#######################################################
-# MACHINE SPECIFIC ALIAS'S
-#######################################################
-
-# Alias's for SSH
+# -------------Aliases-------------
+#
+# Machine specific aliass
+#
+# Alias for SSH
 # alias SERVERNAME='ssh YOURWEBSITE.com -l USERNAME -p PORTNUMBERHERE'
-
-# Alias's to change the directory
+#
+# Alias to change the directory
 # alias web='cd /var/www/html'
-
-# Alias's to mount ISO files
+#
+# Alias to mount ISO files
 # mount -o loop /home/NAMEOFISO.iso /home/ISOMOUNTDIR/
 # umount /home/NAMEOFISO.iso
 # (Both commands done as root only.)
 
-#######################################################
-# GENERAL ALIAS'S
-#######################################################
+# General aliases
+#
 # To temporarily bypass an alias, we precede the command with a \
 # EG: the ls command is aliased, but to use the normal ls command you would type \ls
-
+#
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -179,16 +111,14 @@ alias ebrc='nvim ~/.bashrc'
 # alias to show the date
 alias da='date "+%Y-%m-%d %A %T %Z"'
 
-# Alias's to modified commands
+# Aliases to modified commands
 alias cp='cp -i'
 alias mv='mv -i'
-# alias rm='trash -v'
 alias mkdir='mkdir -p'
 alias ps='ps auxf'
 alias ping='ping -c 10'
 alias less='less -R'
 alias cls='clear'
-alias bat='batcat' # If you are using Ubuntu
 
 # Change directory aliases
 alias home='cd ~'
@@ -198,7 +128,7 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
-# Alias's for multiple directory listing commands
+# Aliases for multiple directory listing commands
 alias la='ls -Alh'                # show hidden files
 alias ls='ls -aFh --color=always' # add colors and file type extensions
 alias lx='ls -lXBh'               # sort by extension
@@ -244,11 +174,11 @@ alias checkcommand="type -t"
 # Show open ports
 alias openports='netstat -nape --inet'
 
-# Alias's for safe and forced reboots
+# Aliases for safe and forced reboots
 alias rebootsafe='sudo shutdown -r now'
 alias rebootforce='sudo shutdown -r -n now'
 
-# Alias's to show disk space and space used in a folder
+# Aliases to show disk space and space used in a folder
 alias diskspace="du -S | sort -n -r |more"
 alias folders='du -h --max-depth=1'
 alias folderssort='find . -maxdepth 1 -type d -print0 | xargs -0 du -sk | sort -rn'
@@ -256,7 +186,7 @@ alias tree='tree -CAhF --dirsfirst'
 alias treed='tree -CAFd'
 alias mountedinfo='df -hT'
 
-# Alias's for archives
+# Aliases for archives
 alias mktar='tar -cvf'
 alias mkbz2='tar -cvjf'
 alias mkgz='tar -cvzf'
@@ -285,20 +215,17 @@ alias sha1='openssl sha1'
 alias clickpaste='sleep 3; xdotool type "$(xclip -o -selection clipboard)"'
 
 # KITTY - alias to be able to use kitty features when connecting to remote servers(e.g use tmux on remote server)
-
 alias kssh="kitty +kitten ssh"
 
 # alias to cleanup unused docker containers, images, networks, and volumes
-
 alias docker-clean=' \
   docker container prune -f ; \
   docker image prune -f ; \
   docker network prune -f ; \
   docker volume prune -f '
 
-#######################################################
-# SPECIAL FUNCTIONS
-#######################################################
+# Special functions
+#
 # Extracts any archive(s) (if unp isn't installed)
 extract() {
   for archive in "$@"; do
@@ -424,7 +351,7 @@ function whatsmyip () {
     echo -n "External IP: "
     curl -s ifconfig.me
   }
-
+ 
 # View Apache logs
 apachelog() {
   if [ -f /etc/httpd/conf/httpd.conf ]; then
@@ -494,8 +421,8 @@ trim() {
   var="${var%"${var##*[![:space:]]}"}" # remove trailing whitespace characters
   echo -n "$var"
 }
-# GitHub Titus Additions
 
+# GitHub
 gcom() {
   git add .
   git commit -m "$1"
@@ -506,25 +433,7 @@ lazyg() {
   git push
 }
 
-function hb {
-  if [ $# -eq 0 ]; then
-    echo "No file path specified."
-    return
-  elif [ ! -f "$1" ]; then
-    echo "File path does not exist."
-    return
-  fi
-
-  uri="http://bin.christitus.com/documents"
-  response=$(curl -s -X POST -d @"$1" "$uri")
-  if [ $? -eq 0 ]; then
-    hasteKey=$(echo $response | jq -r '.key')
-    echo "http://bin.christitus.com/$hasteKey"
-  else
-    echo "Failed to upload the document."
-  fi
-}
-
+# Yazi with directory change
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
 	yazi "$@" --cwd-file="$tmp"
@@ -534,31 +443,35 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-#######################################################
-# Set the ultimate amazing command prompt
-#######################################################
+# Keyboard shortcuts
+bind -x '"\C-t":bash ~/.local/scripts/tmux-sessionizer.sh'
 
-# alias hug="hugo server -F --bind=10.0.0.97 --baseURL=http://10.0.0.97"
+# Prompt
+# PS1='[\u@\h \W]\$ '
+# Custom bash prompt with time, user, host, directory, and git branch
+parse_git_branch() {
+    git branch 2>/dev/null | grep '*' | sed 's/* //'
+}
 
-# Check if the shell is interactive
-if [[ $- == *i* ]]; then
-  # Bind Ctrl+f to insert 'zi' followed by a newline
-  bind '"\C-f":"zi\n"'
-fi
+# With time
+PS1='\[\e[0;36m\]\t \[\e[1;32m\]\u@\h \[\e[0;34m\]\w\[\e[0;33m\] $(parse_git_branch)\[\e[0m\]\n\$ '
+# Without time
+PS1='\[\[\e[1;32m\]\u@\h \[\e[0;34m\]\w\[\e[0;33m\] $(parse_git_branch)\[\e[0m\]\n\$ '
 
+# Color breakdown:
+# \t - Time in HH:MM:SS (cyan)
+# \u@\h - User and hostname (green)
+# \w - Current working directory (blue)
+# Git branch (if any) (yellow)
+
+# Paths
 export PATH=$PATH:"$HOME/.local/bin:$HOME/.cargo/bin:/var/lib/flatpak/exports/bin:/.local/share/flatpak/exports/bin"
 
+# Starship
 # eval "$(starship init bash)"
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# fzf
+eval "$(fzf --bash)"
+
+# zoxide
 eval "$(zoxide init bash)"
-
-# fnm
-FNM_PATH="/home/lunarhaze/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="$FNM_PATH:$PATH"
-  eval "`fnm env`"
-fi
-
-# cargo for rust
-. "$HOME/.cargo/env"
