@@ -21,7 +21,7 @@
 # fnm use --install-if-missing 20
 #
 # cargo:
-# curl https://sh.rustup.rs -sSf | sh
+# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 #######################################################
 # EXPORTS
@@ -99,7 +99,7 @@ fi
 if [ "$color_prompt" = yes ]; then
     # PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
     # PS1='\[\033[38;5;79m\]\w\[\033[00m\]\$ '
-    PS1="\[\033[38;5;110m\]\u@\h \[\033[38;5;109m\]\W\[\033[0m\]$ "
+    PS1="\[\033[38;5;110m\]\w\[\033[0m\]$ "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -174,7 +174,7 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Edit this .bashrc file
-alias ebrc='edit ~/.bashrc'
+alias ebrc='nvim ~/.bashrc'
 
 # alias to show the date
 alias da='date "+%Y-%m-%d %A %T %Z"'
@@ -182,7 +182,7 @@ alias da='date "+%Y-%m-%d %A %T %Z"'
 # Alias's to modified commands
 alias cp='cp -i'
 alias mv='mv -i'
-alias rm='trash -v'
+# alias rm='trash -v'
 alias mkdir='mkdir -p'
 alias ps='ps auxf'
 alias ping='ping -c 10'
@@ -523,6 +523,15 @@ function hb {
   else
     echo "Failed to upload the document."
   fi
+}
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
 }
 
 #######################################################
