@@ -443,9 +443,6 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-# Keyboard shortcuts
-bind -x '"\C-t":bash ~/.local/scripts/tmux-sessionizer.sh'
-
 # Prompt
 # PS1='[\u@\h \W]\$ '
 # Custom bash prompt with time, user, host, directory, and git branch
