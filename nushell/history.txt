@@ -1,0 +1,170 @@
+ls
+cd ~/.config/
+mkdir starship
+cd starship
+wget https://raw.githubusercontent.com/omerxx/dotfiles/refs/heads/master/starship/starship.toml
+ls
+cd
+z
+cd ~/.config/nvim/
+ls
+cd
+clear
+ls
+ls | where name="lua"
+ls | where lua
+ls | where name=lua
+ls | where name:lua
+ls | where name
+ls | where lua
+ls | where name/lua
+ls | where name == lua
+cd
+yazi
+z 
+sdk --version
+dotnet --version
+node --version
+npm --version
+fzf
+cdi
+cd ~/.config/nvim/
+gs
+git status
+ps
+clear
+ls
+=>
+ls
+cls
+clear
+vim wezterm.lua
+nvim wezterm.lua
+clear
+nvim ~/.config/wezterm/wezterm.lua
+z nvim
+cd ~/.config/nvim/
+clear
+git status
+nvim ~/.config/wezterm/wezterm.lua
+ls
+cls
+nvim ~/.config/wezterm/wezterm.lua
+ls
+ls | where name == lua
+ls | where name == y*
+ls | where name == /y*/
+ls | where name == [yay]
+ls | where name == yay
+clear
+nvim ~/.config/wezterm/wezterm.lua
+nvim ~/.config/nushell/env.nu
+nvim ~/.config/nvim
+nvim ~/.config/nushell/env.nu
+nvim ~/.config/nushell/config.nu
+cd ~/.config/nvim/
+cd ~/.config/starship/
+ls
+vim starship.toml
+nvim starship.toml
+echo $STARSHIP_CONFIG
+cp ~/.config/starship/starship.toml ~/.config/
+clear
+cd ~/.config/nvim
+clear
+cd
+clear
+nvim ~/.config/nushell/env.nu
+nvim ~/.config/nushell/config.nu
+z nvim
+clear
+z nvim
+cd
+clear
+yay -S carapace
+nvim ~/.config/nushell/env.nu
+nvim ~/.config/nushell/config.nu
+clear
+z nvim
+cd
+clear
+java --version
+jdk --version
+dotnet --version
+lua --version
+lua -v
+clear
+ts
+cd Repos/
+gh repo clone nushell/nu_scripts
+cp -r nu_scripts/aliases/ ~/.config/nushell/
+z nushel
+cd ~/.config/nushell/
+nvim env.nu 
+nvim config.nu 
+clear
+z nvim
+gs
+z nush
+nvim config.nu 
+cls
+clear
+sudo pacman -S eza exa
+x
+z nvim
+gst
+gss
+clear
+gd
+ga .
+gc -m "Make treesitter auto install = true"
+gp
+z starship
+cd ../starship/
+nvim starship.toml 
+cd -
+z nvim
+z star
+nvim starship.toml 
+z wez
+vim wezterm.lua
+nvim wezterm.lua 
+chsh -l
+vim wezterm.lua
+nvim wezterm.lua 
+z wez
+nvim wezterm.lua 
+cls
+clear
+nvim wezterm.lua 
+z nu
+vim env.nu
+nvim env.nu 
+$env.EDITOR
+config nu
+z nvim
+vim
+cd -
+nvim 
+z wez
+vim wezterm.lua
+cd -
+vim
+nvim
+z nu
+nvim env.nu 
+clear
+z wez
+nvim wezterm.lua 
+clear
+nvim
+clear
+tmux
+clear
+z nvim
+gss
+gst
+ga .
+gc
+gp
+z dot
