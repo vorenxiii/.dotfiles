@@ -24,7 +24,7 @@ config = {
   background = {
     {
       source = {
-        File = "/home/voren/.config/wezterm/wallpapers/rain-world.png",
+        File = "/home/voren/.config/wezterm/wallpapers/rem.jpg",
       },
       hsb = {
         hue = 1.0,
