@@ -3,4 +3,5 @@ set selection-clipboard clipboard
 map D set "first-page-column 1:1"
 map <C-d> set "first-page-column 1:2"
 
-include tokyonight_night.zathurarc
+# include catppuccin-mocha
+# include tokyonight_night.zathurarc
